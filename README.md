@@ -1,17 +1,21 @@
-# Fresh project
+# Unexpected middleware behaviour with Fresh 2.0.0-alpha.40
 
-Your new Fresh project is ready to go. You can follow the Fresh "Getting
-Started" guide here: https://fresh.deno.dev/docs/getting-started
+## Installation
 
-### Usage
+```sh
+git pull git@github.com:honmanyau/fresh-2.0.0-alpha.40-middleware-issue.git
 
-Make sure to install Deno:
-https://docs.deno.com/runtime/getting_started/installation
-
-Then start the project in development mode:
-
-```
-deno task dev
+cd fresh-2.0.0-alpha.40-middleware-issue
+deno run build
+deno run start
 ```
 
-This will watch the project directory and restart as necessary.
+## Steps to reproduce
+
+1. Navigate to `http://localhost:8000/sign-in`.
+2. Observe that we end up on the custom error page with a 404.
+3. In the console, observe in the stack trace that the HTTP error in `routes/admin/_middleware:7:9` was triggered.
+4. Stop the server.
+5. Modify `deno.json` to pin Fresh's version to `jsr:@fresh/core@2.0.0-alpha.37`.
+6. Start the server again.
+7. Navigate to `http://localhost:8000/sign-in` and no errors should be observed.

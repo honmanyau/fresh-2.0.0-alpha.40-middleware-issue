@@ -5,6 +5,8 @@ export default async function ErrorPage(
 	ctx: FreshContext,
 ) {
 	const error = await ctx.error;
+	
+	console.log(error);
 
 	if (error instanceof HttpError) {
 		const status = error.status;
